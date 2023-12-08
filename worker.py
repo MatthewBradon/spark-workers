@@ -1,18 +1,25 @@
 from flask import Flask
 from flask import request
+from google.cloud import secretmanager
 import requests
 import os
 import json
 app = Flask(__name__)
 
 def get_api_key() -> str:
-    secret = os.environ.get("COMPUTE_API_KEY")
-    if secret:
-        return secret
-    else:
-        #local testing
-        with open('.key') as f:
-            return f.read()
+    client = secretmanager.SecretManagerServiceClient()
+    secret_version_name = "projects/737526740663/secrets/compute-api-key"
+    try:
+        # Access the secret version
+        response = client.access_secret_version(name=secret_version_name)
+
+        # Extract the secret value
+        secret_value = response.payload.data.decode("UTF-8")
+
+        return secret_value
+    except Exception as e:
+        print(f"Error retrieving secret: {e}")
+        return None
       
 @app.route("/")
 def hello():
