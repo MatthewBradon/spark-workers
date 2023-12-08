@@ -12,9 +12,9 @@
       "deviceName": "slave1",
       "initializeParams": {
         "diskSizeGb": "10",
-        "diskType": "projects/elaborate-scope-401116/zones/us-west4-b/diskTypes/pd-balanced",
+        "diskType": "projects/elaborate-scope-401116/zones/europe-west1-b/diskTypes/pd-standard",
         "labels": {},
-        "sourceImage": "projects/debian-cloud/global/images/debian-11-bullseye-v20221102"
+        "sourceImage": "projects/debian-cloud/global/images/debian-11-bullseye-v20231115"
       },
       "mode": "READ_WRITE",
       "type": "PERSISTENT"
@@ -24,8 +24,11 @@
     "enableDisplay": false
   },
   "guestAccelerators": [],
+  "instanceEncryptionKey": {},
   "keyRevocationActionType": "STOP",
-  "labels": {},
+  "labels": {
+    "goog-ec-src": "vm_add-rest"
+  },
   "machineType": "projects/elaborate-scope-401116/zones/europe-west1-b/machineTypes/e2-medium",
   "metadata": {
     "items": [
@@ -35,7 +38,7 @@
       }
     ]
   },
-  "name": "slave",
+  "name": "slave1",
   "networkInterfaces": [
     {
       "accessConfigs": [
@@ -48,6 +51,9 @@
       "subnetwork": "projects/elaborate-scope-401116/regions/europe-west1/subnetworks/default"
     }
   ],
+  "params": {
+    "resourceManagerTags": {}
+  },
   "reservationAffinity": {
     "consumeReservationType": "ANY_RESERVATION"
   },
