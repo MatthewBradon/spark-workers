@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import request
+from flask import render_template
 from google.cloud import secretmanager
 import requests
 import os
@@ -31,7 +32,7 @@ def test():
 @app.route("/add",methods=['GET','POST'])
 def add():
   if request.method=='GET':
-    return "Use post to add" # replace with form template
+    return render_template('add_form.html')
   else:
     token=access_secret_version("compute-api-key")
     ret = addWorker(token,request.form['num'])
