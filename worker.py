@@ -11,7 +11,7 @@ def get_api_key() -> str:
     secret_version_name = "projects/737526740663/secrets/compute-api-key/versions/3"
     try:
         # Access the secret version
-        response = client.access_secret_version(request={"name":secret_version_name})
+        response = client.access_secret_version(name=secret_version_name)
 
         # Extract the secret value
         secret_value = response.payload.data.decode("UTF-8")
