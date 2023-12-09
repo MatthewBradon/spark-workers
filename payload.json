@@ -9,7 +9,7 @@
     {
       "autoDelete": true,
       "boot": true,
-      "deviceName": "slave1",
+      "deviceName": "slave2",
       "initializeParams": {
         "diskSizeGb": "10",
         "diskType": "projects/elaborate-scope-401116/zones/europe-west1-b/diskTypes/pd-standard",
@@ -38,7 +38,7 @@
       }
     ]
   },
-  "name": "slave1",
+  "name": "slave2",
   "networkInterfaces": [
     {
       "accessConfigs": [
