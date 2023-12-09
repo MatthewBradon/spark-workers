@@ -6,20 +6,18 @@ import os
 import json
 app = Flask(__name__)
 
-def get_api_key() -> str:
+def access_secret_version(secret_id, version_id="latest"):
+    # Create the Secret Manager client.
     client = secretmanager.SecretManagerServiceClient()
-    secret_version_name = "projects/737526740663/secrets/compute-api-key/versions/3"
-    try:
-        # Access the secret version
-        response = client.access_secret_version(name=secret_version_name)
 
-        # Extract the secret value
-        secret_value = response.payload.data.decode("UTF-8")
+    # Build the resource name of the secret version.
+    name = f"projects/737526740663/secrets/{secret_id}/versions/{version_id}"
 
-        return secret_value
-    except Exception as e:
-        print(f"Error retrieving secret: {e}")
-        return None
+    # Access the secret version.
+    response = client.access_secret_version(name=name)
+
+    # Return the decoded payload.
+    return response.payload.data.decode('UTF-8')
       
 @app.route("/")
 def hello():
@@ -28,14 +26,14 @@ def hello():
 @app.route("/test")
 def test():
     #return "Test" # testing 
-    return(get_api_key())
+    return(access_secret_version("compute-api-key"))
 
 @app.route("/add",methods=['GET','POST'])
 def add():
   if request.method=='GET':
     return "Use post to add" # replace with form template
   else:
-    token=get_api_key()
+    token=access_secret_version("compute-api-key")
     ret = addWorker(token,request.form['num'])
     return ret
 
